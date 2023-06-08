@@ -1,74 +1,93 @@
-﻿namespace CSVComparison;
-
-/// <summary>
-/// Records information about an individual "Break" between two CSV files
-/// </summary>
-public class BreakDetail
+﻿namespace CSVComparison
 {
     /// <summary>
-    /// The type of Break
+    /// Records information about an individual "Break" between two CSV files
     /// </summary>
-    public BreakType BreakType;
-
-    /// <summary>
-    /// A single line description of the break
-    /// </summary>
-    public string BreakDescription;
-
-    /// <summary>
-    /// The key of the row in the CSV file
-    /// </summary>
-    public string BreakKey;
-
-    /// <summary>
-    /// The index of the row in the leftHandSide CSV file
-    /// </summary>
-    public int LeftHandSideRow;
-
-    /// <summary>
-    /// The index of the row in the rightHandSide CSV file
-    /// </summary>
-    public int RightHandSideRow;
-
-    /// <summary>
-    /// The name of the column of the mismatching data. Will be blank if the row is an orphan
-    /// </summary>
-    public string Column;
-
-    /// <summary>
-    /// The value of mismatching data. Will be blank if the row is an orphan
-    /// </summary>
-    public string LeftHandSideValue;
-
-    /// <summary>
-    /// The value of mismatching data. Will be blank if the row is an orphan
-    /// </summary>
-    public string RightHandSideValue;
-
-    public BreakDetail() { }
-
-    public BreakDetail(
-        BreakType breakType,         
-        string breakKey, 
-        int leftHandSideRow, 
-        int rightHandSideRow, 
-        string column,
-        string leftHandSideValue, 
-        string rightHandSideValue)
+    public class BreakDetail
     {
-        BreakType = breakType;
-        BreakKey = breakKey;
-        LeftHandSideRow = leftHandSideRow;
-        RightHandSideRow = rightHandSideRow;
-        Column = column;
-        LeftHandSideValue = leftHandSideValue;
-        RightHandSideValue = rightHandSideValue;
+        /// <summary>
+        /// The type of Break
+        /// </summary>
+        public BreakType BreakType;
 
-        BreakDescription = $"Key:{BreakKey}, LeftHandSide Row:{LeftHandSideRow}, Value:{LeftHandSideValue} != RightHandSide Row:{RightHandSideRow}, Value:{RightHandSideValue}";
-    }
+        /// <summary>
+        /// A single line description of the break
+        /// </summary>
+        public string BreakDescription;
 
-    public override string ToString()
-    {
-        return $"Break Type: {BreakType}. Description: {BreakDescription}";
+        /// <summary>
+        /// The key of the row in the CSV file
+        /// </summary>
+        public string BreakKey;
+
+        /// <summary>
+        /// The index of the row in the reference CSV file
+        /// </summary>
+        public int LeftHandSideRow;
+
+        /// <summary>
+        /// The index of the row in the candidate CSV file
+        /// </summary>
+        public int RightHandSideRow;
+
+        /// <summary>
+        /// The name of the column of the mismatching data. Will be blank if the row is an orphan
+        /// </summary>
+        public string Column;
+
+        /// <summary>
+        /// The value of mismatching data. Will be blank if the row is an orphan
+        /// </summary>
+        public string LeftHandSideValue;
+
+        /// <summary>
+        /// The value of mismatching data. Will be blank if the row is an orphan
+        /// </summary>
+        public string RightHandSideValue;
+
+        public BreakDetail() { }
+
+        public BreakDetail(
+            BreakType breakType,         
+            string breakKey, 
+            int leftHandSideRow, 
+            int rightHandSideRow, 
+            string column,
+            string leftHandSideValue, 
+            string rightHandSideValue)
+        {
+            BreakType = breakType;
+            BreakKey = breakKey;
+            LeftHandSideRow = leftHandSideRow;
+            RightHandSideRow = rightHandSideRow;
+            Column = column;
+            LeftHandSideValue = leftHandSideValue;
+            RightHandSideValue = rightHandSideValue;
+
+            BreakDescription = $"Key:{BreakKey}, LeftHandSide Row:{LeftHandSideRow}, Value:{LeftHandSideValue} != RightHandSide Row:{RightHandSideRow}, Value:{RightHandSideValue}";
+        }
+        public BreakDetail(BreakType breakType,
+                           string breakKey,
+                           int leftHandSideRow,
+                           int rightHandSideRow,
+                           string column,
+                           string leftHandSideValue,
+                           string rightHandSideValue,
+                           string inequalityDescription) 
+            : this(breakType,
+                   breakKey,
+                   leftHandSideRow,
+                   rightHandSideRow,
+                   column,
+                   leftHandSideValue,
+                   rightHandSideValue)
+        {
+            BreakDescription = $"Key:{BreakKey}, LeftHandSideRow:{LeftHandSideRow} != RightHandSideRow:{RightHandSideRow}, {inequalityDescription}";
+        } 
+        
+        public override string ToString()
+        {
+            return $"Break Type: {BreakType}. Description: {BreakDescription}";
+        }
     }
 }

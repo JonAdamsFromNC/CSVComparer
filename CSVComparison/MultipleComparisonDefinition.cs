@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace CSVComparison;
-
-public class MultipleComparisonDefinition
+namespace CSVComparison
 {
-    [XmlArrayItem("Comparison")]
-    public List<FileComparisonDefinition> FileComparisonDefinitions;
+    public class MultipleComparisonDefinition
+    {
+        [XmlArrayItem("Comparison")]
+        public List<FileComparisonDefinition> FileComparisonDefinitions;
+    }
 }

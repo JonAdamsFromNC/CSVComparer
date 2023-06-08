@@ -1,19 +1,20 @@
-﻿namespace CSVComparison;
-
-/// <summary>
-/// A representation of a single CSV Row
-/// </summary>
-public class CsvRow
+﻿namespace CSVComparison
 {
     /// <summary>
-    /// The key defining uniqueness for this row
+    /// A representation of a single CSV Row
     /// </summary>
-    public string Key;
+    public class CsvRow
+    {
+        /// <summary>
+        /// The key defining uniqueness for this row
+        /// </summary>
+        public string Key;
 
-    public string[] Columns;
+        public string[] Columns;
 
-    /// <summary>
-    /// Index of this row in the CSV File
-    /// </summary>
-    public int RowIndex;
+        /// <summary>
+        /// Index of this row in the CSV File
+        /// </summary>
+        public int RowIndex;
+    }
 }

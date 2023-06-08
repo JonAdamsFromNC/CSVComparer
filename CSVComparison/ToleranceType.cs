@@ -1,8 +1,9 @@
-﻿namespace CSVComparison;
-
-public enum ToleranceType
+﻿namespace CSVComparison
 {
-    Exact,
-    Relative,
-    Absolute
+    public enum ToleranceType
+    {
+        Exact,
+        Relative,
+        Absolute
+    }
 }

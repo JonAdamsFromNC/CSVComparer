@@ -2,12 +2,31 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace CSVComparisonTests;
+
+public class TestComparer : IEqualityComparerWithDescriptor
+{
+	public new bool Equals(object x, object y)
+	{
+		return true;
+	}
+
+	public (bool Equal, string Description) EqualsWithDescription(object x, object y)
+	{
+		return (true, "TestComparer");
+	}
+
+	public int GetHashCode(object obj)
+	{
+		return 0;
+	}
+}
 
 public class TestConfiguration
 {
@@ -18,8 +37,9 @@ public class TestConfiguration
         {
             Delimiter = ",",
             HeaderRowIndex = 1,
-            ToleranceValue = 0.1
+            ToleranceValue = 0.1,
         };
+        comparisonDefinition.CustomEqualityComparers.Add(new("ABC", new TestComparer()));
 
         comparisonDefinition.KeyColumns = new List<string>() { "ABC", "DEF" };
 
@@ -43,6 +63,7 @@ public class TestConfiguration
         Assert.AreEqual(comparisonDefinition.ToleranceType, deserializedDefinition.ToleranceType, "ToleranceType");
         Assert.AreEqual(comparisonDefinition.ToleranceValue, deserializedDefinition.ToleranceValue, "ToleranceValue");
         Assert.AreEqual(comparisonDefinition.KeyColumns.Count, deserializedDefinition.KeyColumns.Count, "KeyColumns count");
+        Assert.AreEqual(comparisonDefinition.CustomEqualityComparers.Count, deserializedDefinition.CustomEqualityComparers.Count, "CustomEqualityComparers count");
     }
 
     [Test]
